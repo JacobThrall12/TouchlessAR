@@ -10,6 +10,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject playButton;
 
+    private void OnEnable()
+    {
+        EventManager.instance.NextItem += NextModel;
+        EventManager.instance.PrevItem += PreviousModel;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.instance.NextItem -= NextModel;
+        EventManager.instance.PrevItem -= PreviousModel;
+    }
+
     private void Start()
     {
         for (int i = 0; i < models.Count; i++)
