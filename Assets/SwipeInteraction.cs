@@ -1,12 +1,11 @@
 using UnityEngine;
 
-namespace Leap.Unity.Interaction {
-
+namespace Leap.Unity.Interaction 
+{
     public class SwipeInteraction : MonoBehaviour
     {
         private InteractionController controller;
 
-        [SerializeField]
         private float swipeTime;
         private float maxSwipeTime = .5f;
         private float maxSwipeSens = 3f;

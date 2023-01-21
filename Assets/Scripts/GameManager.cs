@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> models;
     [SerializeField]
-    private int currModel = 0;
-    [SerializeField]
     private GameObject playButton;
+
+    private int currModel = 0;
 
     private void OnEnable()
     {
@@ -67,14 +67,34 @@ public class GameManager : MonoBehaviour
 
     public void PlayObject()
     {
-        models[currModel].GetComponent<Play>().PlayObject();
+        GameObject model = models[currModel];
+
+        if (model.GetComponent<Play>())
+            model.GetComponentInChildren<Play>().PlayObject();
+
+        else if (model.GetComponentInParent<Play>())
+            model.GetComponentInChildren<Play>().PlayObject();
+
+        else if (model.GetComponentInChildren<Play>())
+            model.GetComponentInChildren<Play>().PlayObject();
     }
 
-    private void CheckPlay()
+    private bool CheckPlayScript()
     {
-        if (models[currModel].GetComponent<Play>())
-            playButton.SetActive(true);
+        GameObject model = models[currModel];
+
+        if (model.GetComponent<Play>())
+            return true;
+
+        else if (model.GetComponentInParent<Play>())
+            return true;
+
+        else if (model.GetComponentInChildren<Play>())
+            return true;
+
         else
-            playButton.SetActive(false);
+            return false;
     }
+
+    private void CheckPlay() => playButton.SetActive(CheckPlayScript());
 }
