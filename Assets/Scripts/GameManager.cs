@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     private int currModel = 0;
 
+
+
     private void OnEnable()
     {
         EventManager.instance.NextItem += NextModel;
